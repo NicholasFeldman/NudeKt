@@ -12,6 +12,8 @@ internal class Detector(val image: BufferedImage) {
     var lastFrom = -1
     var lastTo = -1
 
+    var result = false
+
     fun parse(): Boolean {
         return false
     }
@@ -85,5 +87,65 @@ internal class Detector(val image: BufferedImage) {
                 skinRegions.add(region)
             }
         }
+    }
+
+    fun analyzeRegions(): Boolean {
+        if (skinRegions.size < 3) {
+            result = false
+            return result
+        }
+
+        skinRegions.sortBy { it.size }
+        skinRegions.reverse()
+
+        val totalSkinPixels = skinRegions.totalPixels()
+
+        val totalSkinPercentage = totalSkinPixels / totalPixels
+
+        // Check if there is more than 15% skin in the image
+        if (totalSkinPercentage < 15) {
+            result = false
+            return false
+        }
+
+        // Check if the largest skin region is less than 35%
+        // and the second largest region is less than 30%
+        // and the third largest region is less than 30%
+        val biggestRegionPercentage = skinRegions[0].size / totalPixels * 100
+        val secondBiggestRegionPercentage = skinRegions[1].size / totalPixels * 100
+        val thirdBiggestRegionPercentage = skinRegions[2].size / totalPixels * 100
+        if (biggestRegionPercentage < 35 && secondBiggestRegionPercentage < 30 && thirdBiggestRegionPercentage < 30) {
+            result = false
+            return false
+        }
+
+        // Check if the largest skin region is less than 45%
+        if (biggestRegionPercentage < 45) {
+            result = false
+            return false
+        }
+
+        // Check if the total skin is less than 30%
+        // and the number of skin within the bounding polygon is less than 55% the size
+        if (totalSkinPercentage < 30) {
+            skinRegions.forEachIndexed { index, region ->
+                val skinRate = region.skinRateInBoundingPolygon()
+                if (skinRate < 0.55) {
+                    result = false
+                    return false
+                }
+            }
+        }
+
+        // Check if there are more than 60 skin regions
+        // and the average intensity within the polygon is less than 0.25
+        val averageIntensity = skinRegions.regionsAverageIntensity()
+        if (skinRegions.size > 60 && averageIntensity < 0.25) {
+            result = false
+            return false
+        }
+
+        result = true
+        return true
     }
 }
