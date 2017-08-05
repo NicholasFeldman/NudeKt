@@ -8,6 +8,4 @@ fun isNude(path: String) = isNude(File(path))
 
 fun isNude(file: File) = isNude(ImageIO.read(file))
 
-fun isNude(image: BufferedImage): Boolean {
-    return false
-}
+fun isNude(image: BufferedImage) = Detector(image).parse()
