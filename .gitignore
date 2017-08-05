@@ -1,0 +1,8 @@
+### Editors
+
+## IDEA
+*.idea
+*.iws
+
+## VIM
+*.swp
