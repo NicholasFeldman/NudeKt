@@ -10,7 +10,8 @@ data class Pixel(
         val v: Float
 )
 
-typealias Region = List<Pixel>
+typealias Region = MutableList<Pixel>
+fun Region() = mutableListOf<Pixel>()
 
 fun Region.leftMost(): Pixel {
     var minX = Integer.MAX_VALUE
@@ -104,7 +105,8 @@ fun Region.averageIntensity(): Float {
     return totalIntensity / this.size
 }
 
-typealias Regions = List<Region>
+typealias Regions = MutableList<Region>
+fun Regions() = mutableListOf<Region>()
 
 fun Regions.totalPixels(): Int {
     var totalSkin = 0
