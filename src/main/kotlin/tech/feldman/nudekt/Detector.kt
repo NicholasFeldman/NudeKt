@@ -7,7 +7,7 @@ internal class Detector(val image: BufferedImage) {
 
     val totalPixels = image.width * image.height
 
-    var mergeRegions = mutableListOf<MutableList<Int>>()
+    val mergeRegions = mutableListOf<MutableList<Int>>()
     val skinRegions = Regions()
     val detectedRegions = Regions()
 
@@ -118,11 +118,8 @@ internal class Detector(val image: BufferedImage) {
                         newMerge[too].addAll(mergeRegions[fromo])
                     }
                 }
-                mergeRegions = newMerge
-
-                //for ( i in (toIndex + 1) until mergeRegions.size) {
-                //    mergeRegions[toIndex].addAll(mergeRegions[i])
-                //}
+                mergeRegions.clear()
+                mergeRegions.addAll(newMerge)
             }
             return
         }
