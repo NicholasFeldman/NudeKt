@@ -2,61 +2,10 @@ package tech.feldman.nudekt.region
 
 class Region : ArrayList<Pixel>() {
 
-    fun leftMost(): Pixel {
-        var minX = Integer.MAX_VALUE
-        var index = 0
-
-        this.forEachIndexed { i, pixel ->
-            if (pixel.x < minX) {
-                minX = pixel.x
-                index = i
-            }
-        }
-
-        return this[index]
-    }
-
-    fun rightMost(): Pixel {
-        var maxX = Integer.MIN_VALUE
-        var index = 0
-
-        this.forEachIndexed { i, pixel ->
-            if (pixel.x > maxX) {
-                maxX = pixel.x
-                index = i
-            }
-        }
-
-        return this[index]
-    }
-
-    fun upperMost(): Pixel {
-        var minY = Integer.MAX_VALUE
-        var index = 0
-
-        this.forEachIndexed { i, pixel ->
-            if (pixel.y < minY) {
-                minY = pixel.y
-                index = i
-            }
-        }
-
-        return this[index]
-    }
-
-    fun lowerMost(): Pixel {
-        var maxY = Integer.MIN_VALUE
-        var index = 0
-
-        this.forEachIndexed { i, pixel ->
-            if (pixel.y > maxY) {
-                maxY = pixel.y
-                index = i
-            }
-        }
-
-        return this[index]
-    }
+    fun leftMost()  = minBy { it.x } ?: this[0]
+    fun rightMost() = maxBy { it.x } ?: this[0]
+    fun upperMost() = minBy { it.y } ?: this[0]
+    fun lowerMost() = maxBy { it.y } ?: this[0]
 
     fun skinRateInBoundingPolygon(): Float {
         val vertices = listOf(leftMost(), upperMost(), rightMost(), lowerMost(), leftMost())
