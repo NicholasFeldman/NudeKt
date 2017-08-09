@@ -1,5 +1,8 @@
 package tech.feldman.nudekt
 
+import tech.feldman.nudekt.region.Pixel
+import tech.feldman.nudekt.region.Region
+import tech.feldman.nudekt.region.Regions
 import java.awt.Color
 import java.awt.image.BufferedImage
 
