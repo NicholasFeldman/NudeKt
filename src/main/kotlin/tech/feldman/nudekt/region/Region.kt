@@ -12,20 +12,21 @@ class Region : ArrayList<Pixel>() {
         var total = 0
         var skin = 0
 
-        this.forEach { p1 ->
+        for (pixel in this) {
             var inPoly = true
 
-            vertices.forEachIndexed { i, vert ->
+            for ((i, vert) in vertices.withIndex()) {
                 val p2 = vert
                 val p3 = vertices[i + 1]
 
-                val n = p1.x * (p2.y - p3.y) + p2.x * (p3.y - p1.y) + p3.x * (p1.y - p2.y)
+                val n = pixel.x * (p2.y - p3.y) + p2.x * (p3.y - pixel.y) + p3.x * (pixel.y - p2.y)
                 if (n < 0) {
                     inPoly = false
-                    return@forEach
+                    break
                 }
             }
-            if (inPoly && p1.isSkin) {
+
+            if (inPoly && pixel.isSkin) {
                 skin++
             }
             total++
@@ -33,13 +34,5 @@ class Region : ArrayList<Pixel>() {
         return skin.toFloat() / total.toFloat()
     }
 
-    fun averageIntensity(): Float {
-        var totalIntensity = 0F
-
-        this.forEach { pixel ->
-            totalIntensity += pixel.v
-        }
-
-        return totalIntensity / this.size
-    }
+    fun averageIntensity() = map { it.v }.sum() / size
 }
