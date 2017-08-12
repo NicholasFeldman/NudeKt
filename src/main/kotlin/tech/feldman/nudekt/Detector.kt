@@ -221,7 +221,7 @@ internal class Detector(val image: BufferedImage) {
 
         // Check if there are more than 60 skin regions
         // and the average intensity within the polygon is less than 0.25
-        val averageIntensity = skinRegions.regionsAverageIntensity()
+        val averageIntensity = skinRegions.averageIntensity()
         if (skinRegions.size > 60 && averageIntensity < 0.25) {
             result = false
             return false
