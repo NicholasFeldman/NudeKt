@@ -7,6 +7,7 @@ build
 ## IDEA
 *.idea
 *.iws
+out
 
 ## VIM
 *.swp

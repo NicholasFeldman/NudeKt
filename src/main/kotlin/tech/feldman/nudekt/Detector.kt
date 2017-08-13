@@ -102,26 +102,7 @@ internal class Detector(val image: BufferedImage) {
             }
         }
 
-        if (fromIndex != -1 && toIndex != -1) {
-            if (fromIndex != toIndex) {
-                val fromRegion = mergeRegions[fromIndex]
-                val toRegion = mergeRegions[toIndex]
-                val region = mutableListOf<Int>()
-                region.addAll(fromRegion)
-                region.addAll(toRegion)
-                mergeRegions[fromIndex] = region
-
-
-                val newMerge = mergeRegions.slice(0..toIndex).toMutableList()
-
-                for (too in 0 until toIndex) {
-                    for (fromo in toIndex..mergeRegions.lastIndex) {
-                        newMerge[too].addAll(mergeRegions[fromo])
-                    }
-                }
-                mergeRegions.clear()
-                mergeRegions.addAll(newMerge)
-            }
+        if (fromIndex != -1 && toIndex != -1 && fromIndex == toIndex) {
             return
         }
 
@@ -136,6 +117,11 @@ internal class Detector(val image: BufferedImage) {
 
         if (fromIndex == -1 && toIndex != -1) {
             mergeRegions[toIndex].add(from)
+        }
+
+        if (fromIndex != -1 && toIndex != -1 && fromIndex != toIndex) {
+            mergeRegions[fromIndex].addAll(mergeRegions[toIndex])
+            mergeRegions.removeAt(toIndex)
         }
     }
 
