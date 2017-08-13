@@ -3,7 +3,7 @@ package tech.feldman.nudekt.region
 import tech.feldman.nudekt.extensions.Polygon
 import tech.feldman.nudekt.extensions.contains
 
-class Region : ArrayList<Pixel>() {
+internal class Region : ArrayList<Pixel>() {
 
     fun leftMost()  = minBy { it.x } ?: this[0]
     fun rightMost() = maxBy { it.x } ?: this[0]

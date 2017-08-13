@@ -209,7 +209,7 @@ internal class Detector(val image: BufferedImage) {
     }
 }
 
-fun classifySkin(r: Float, g: Float, b: Float): Boolean {
+internal fun classifySkin(r: Float, g: Float, b: Float): Boolean {
     val rgbClassifier = r > 95 &&
             g > 40 && g < 100 &&
             b > 20 &&

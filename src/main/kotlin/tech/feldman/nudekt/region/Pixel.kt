@@ -1,6 +1,6 @@
 package tech.feldman.nudekt.region
 
-data class Pixel(
+internal data class Pixel(
         val id: Int,
         val isSkin: Boolean,
         var region: Int,

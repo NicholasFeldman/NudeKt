@@ -1,15 +1,15 @@
 package tech.feldman.nudekt
 
-fun maxRgb(r: Float, g: Float, b: Float): Float {
+internal fun maxRgb(r: Float, g: Float, b: Float): Float {
     return Math.max(Math.max(r, g), b)
 }
 
-fun minRgb(r: Float, g: Float, b: Float): Float {
+internal fun minRgb(r: Float, g: Float, b: Float): Float {
     return Math.min(Math.min(r, g), b)
 }
 
-data class NormalizedRGB(val r: Float, val g: Float, val b: Float)
-fun toNormalizedRgb(r: Float, g: Float, b: Float): NormalizedRGB {
+internal data class NormalizedRGB(val r: Float, val g: Float, val b: Float)
+internal fun toNormalizedRgb(r: Float, g: Float, b: Float): NormalizedRGB {
     val sum = r + g + b
     val nr = r / sum
     val ng = g / sum
@@ -18,8 +18,8 @@ fun toNormalizedRgb(r: Float, g: Float, b: Float): NormalizedRGB {
     return NormalizedRGB(nr, ng, nb)
 }
 
-data class Hsv(val h: Float, val s: Float, val v: Float)
-fun toHsv(r: Float, g: Float, b: Float): Hsv {
+internal data class Hsv(val h: Float, val s: Float, val v: Float)
+internal fun toHsv(r: Float, g: Float, b: Float): Hsv {
     val sum = r + g + b
     val max = maxRgb(r, g, b)
     val min = minRgb(r, g, b)
